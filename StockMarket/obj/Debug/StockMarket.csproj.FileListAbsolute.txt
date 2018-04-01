@@ -60,16 +60,21 @@ E:\ECEUWO\Teaching\Winter2018\SE3314b\Assignments\1\Assignment1 solution\Solutio
 E:\ECEUWO\Teaching\Winter2018\SE3314b\Assignments\1\Assignment1 solution\Solution\StockMarket\obj\Debug\StockExchangeMarket.StockStateSummary.resources
 E:\ECEUWO\Teaching\Winter2018\SE3314b\Assignments\1\Assignment1 solution\Solution\StockMarket\obj\Debug\StockMarket.csproj.GenerateResource.Cache
 D:\Desktop\Assignment2\StockMarket\bin\Debug\StockMarket.exe.config
-D:\Desktop\Assignment2\StockMarket\obj\Debug\StockMarket.exe
-D:\Desktop\Assignment2\StockMarket\obj\Debug\StockMarket.pdb
 D:\Desktop\Assignment2\StockMarket\bin\Debug\StockMarket.exe
 D:\Desktop\Assignment2\StockMarket\bin\Debug\StockMarket.pdb
-D:\Desktop\Assignment2\StockMarket\obj\Debug\StockMarket.csprojResolveAssemblyReference.cache
+D:\Desktop\Assignment2\StockMarket\bin\Debug\Newtonsoft.Json.dll
+D:\Desktop\Assignment2\StockMarket\bin\Debug\Newtonsoft.Json.xml
 D:\Desktop\Assignment2\StockMarket\obj\Debug\StockExchangeMarket.StockSecuritiesExchange.resources
 D:\Desktop\Assignment2\StockMarket\obj\Debug\StockExchangeMarket.PlaceSellOrder.resources
-D:\Desktop\Assignment2\StockMarket\obj\Debug\StockExchangeMarket.PlaceBidOrder.resources
+D:\Desktop\Assignment2\StockMarket\obj\Debug\StockExchangeMarket.tempObj.resources
 D:\Desktop\Assignment2\StockMarket\obj\Debug\StockExchangeMarket.Properties.Resources.resources
 D:\Desktop\Assignment2\StockMarket\obj\Debug\StockExchangeMarket.MarketByOrder.resources
 D:\Desktop\Assignment2\StockMarket\obj\Debug\StockExchangeMarket.MarketByPrice.resources
 D:\Desktop\Assignment2\StockMarket\obj\Debug\StockExchangeMarket.StockStateSummary.resources
 D:\Desktop\Assignment2\StockMarket\obj\Debug\StockMarket.csproj.GenerateResource.Cache
+D:\Desktop\Assignment2\StockMarket\obj\Debug\StockMarket.exe
+D:\Desktop\Assignment2\StockMarket\obj\Debug\StockMarket.pdb
+D:\Desktop\Assignment2\StockMarket\bin\Debug\Microsoft.ReportViewer.Common.dll
+D:\Desktop\Assignment2\StockMarket\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+D:\Desktop\Assignment2\StockMarket\bin\Debug\Microsoft.ReportViewer.WebForms.DLL
+D:\Desktop\Assignment2\StockMarket\obj\Debug\StockMarket.csprojResolveAssemblyReference.cache

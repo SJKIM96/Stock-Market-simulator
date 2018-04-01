@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
 
@@ -13,6 +15,9 @@ namespace StockExchangeMarket
     {
         RealTimedata Subject;
         Company selectedCompany;
+        TcpClient client;
+        int sessionNum;
+        int CSeq;
         public PlaceSellOrder(Object _subject)
         {
             Subject = (RealTimedata)_subject;
@@ -23,6 +28,21 @@ namespace StockExchangeMarket
             {
                 this.comboBox1.Items.Add(company.Name);
 
+            }
+            comboBox1.SelectedIndex = 0;
+        }
+        public PlaceSellOrder(Object _subject, TcpClient client, ref int CSeq, int SessionNum)
+        {
+            Subject = (RealTimedata)_subject;
+            this.client = client;
+            this.CSeq = CSeq;
+            this.sessionNum = SessionNum;
+
+            InitializeComponent();
+
+            foreach (Company company in Subject.getCompanies())
+            {
+                this.comboBox1.Items.Add(company.Name);   
             }
             comboBox1.SelectedIndex = 0;
         }
@@ -40,6 +60,33 @@ namespace StockExchangeMarket
             {
 
                 selectedCompany.addSellOrder(Convert.ToDouble(textBox2.Text), Convert.ToInt32(textBox1.Text));
+                tempObj tO;
+                NetworkStream nwstream = client.GetStream();
+                string companymsg = "sellOrder SME/TCP-1.0\nCSeq: " + CSeq++ + " Session: " + sessionNum + " Data: ";
+                tO = new tempObj(Convert.ToDouble(textBox2.Text), Convert.ToInt32(textBox1.Text));
+                string orders;
+                if (selectedCompany.Symbol == "MSFT")
+                {
+                    orders = JsonConvert.SerializeObject(new { MSFT = tO });
+                }
+                else if (selectedCompany.Symbol == "AAPL")
+                {
+                    orders = JsonConvert.SerializeObject(new { AAPL = tO });
+                }
+                else
+                {
+                    orders = JsonConvert.SerializeObject(new { FB = tO });
+                }
+
+                companymsg += orders;
+                //send to server
+                byte[] tosend = ASCIIEncoding.ASCII.GetBytes(companymsg);
+                nwstream.Write(tosend, 0, tosend.Length);
+
+                //wait for response
+                byte[] read = new byte[client.ReceiveBufferSize];
+                int bytesread = nwstream.Read(read, 0, client.ReceiveBufferSize);
+                string decode = Encoding.ASCII.GetString(read, 0, bytesread);
                 foreach (Control control in this.Controls)
                 {
                     if (control is TextBox)

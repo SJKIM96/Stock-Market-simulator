@@ -17,6 +17,12 @@ namespace StockExchangeMarket
             orderSize = size;
             orderPrice = price;
         }
+        public BuyOrder(Double price, int size, DateTime dt)
+        {
+            orderDateTime = dt;
+            orderSize = size;
+            orderPrice = price;
+        }
 
         // Gets or sets the price
         public Double Price
