@@ -98,9 +98,9 @@ namespace StockExchangeMarket
                 nwstream.Write(tosend, 0, tosend.Length);
 
                 //wait for response
-                byte[] read = new byte[client.ReceiveBufferSize];
-                int bytesread = nwstream.Read(read, 0, client.ReceiveBufferSize);
-                string decode = Encoding.ASCII.GetString(read, 0, bytesread);
+                //byte[] read = new byte[client.ReceiveBufferSize];
+                //int bytesread = nwstream.Read(read, 0, client.ReceiveBufferSize);
+                //string decode = Encoding.ASCII.GetString(read, 0, bytesread);
 
 
                 foreach (Control control in this.Controls)
