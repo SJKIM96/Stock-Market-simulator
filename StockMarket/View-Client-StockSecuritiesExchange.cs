@@ -266,7 +266,7 @@ namespace StockExchangeMarket
 
                 // thread out to recieve update from other user
                 Thread listener = new Thread(new ThreadStart(listentoServer));
-                listener.IsBackground = true;
+                //listener.IsBackground = true;
                 listener.Start();
                
 

@@ -23,6 +23,7 @@ namespace StockExchangeMarket
             //Register itself as an observer
             StockMarket.Register(this);
             InitializeComponent();
+            
             update();
         }
 
@@ -35,37 +36,49 @@ namespace StockExchangeMarket
         }
         public void update()
         {
-            ordersGrid.Rows.Clear();
-            ordersGrid.Refresh();
-
-            foreach (Company company in StockMarket.getCompanies())
+            if (this.ordersGrid.InvokeRequired)
             {
-                if (company.Name == companyName)
+                ordersGrid.Invoke(new Action(() =>
                 {
-                    selectedCompany = company;
-                    break;
+                    this.update();
+                }));
+            }
+            else
+            {
+                ordersGrid.Rows.Clear();
+                ordersGrid.Refresh();
+
+                foreach (Company company in StockMarket.getCompanies())
+                {
+                    if (company.Name == companyName)
+                    {
+                        selectedCompany = company;
+                        break;
+                    }
+                }
+                int i = 0;
+                foreach (Order buyOrder in selectedCompany.getBuyOrders())
+                {
+                    string[] row1 = { buyOrder.Size.ToString(), buyOrder.Price.ToString(), null, null };
+                    ordersGrid.Rows.Add(row1);
+                    i++;
+                    if (i == 10) break;
+                }
+                for (int j = i; j < 10; j++)
+                {
+                    string[] row1 = { null, null, null, null };
+                    ordersGrid.Rows.Add(row1);
+                }
+                int k = 0;
+                foreach (Order sellOrder in selectedCompany.getSellOrders())
+                {
+                    ordersGrid[2, k].Value = sellOrder.Price.ToString();
+                    ordersGrid[3, k].Value = sellOrder.Size.ToString();
+                    k++;
+                    if (k == 10) break;
                 }
             }
-            int i = 0;
-            foreach (Order buyOrder in selectedCompany.getBuyOrders())
-            {
-                string[] row1 = { buyOrder.Size.ToString(), buyOrder.Price.ToString(),null,null };
-                ordersGrid.Rows.Add(row1);
-                i++;
-                if (i == 10) break;
-            }
-            for (int j=i; j<10; j++){
-                string[] row1 = { null, null, null, null };
-                ordersGrid.Rows.Add(row1);
-            }
-            int k = 0;
-            foreach (Order sellOrder in selectedCompany.getSellOrders())
-            {
-                ordersGrid[2, k].Value = sellOrder.Price.ToString();
-                ordersGrid[3, k].Value = sellOrder.Size.ToString();
-                k++;
-                if (k == 10) break;
-            }
+           
         }
 
         private void MarketByOrder_FormClosed(object sender, FormClosedEventArgs e)

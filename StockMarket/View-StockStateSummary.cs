@@ -71,42 +71,56 @@ namespace StockExchangeMarket
 
         public void update()
         {
-            summaryGrid.Rows.Clear();
-            summaryGrid.Refresh();
-
-            List<Company> StockCompanies = StockMarket.getCompanies();
-            int i = 0;
-            foreach (Company company in StockCompanies)
+            if (this.summaryGrid.InvokeRequired)
             {
-                double changeNet;
-                double changePer;
-                int volume;
-                Bitmap sign;
-                sign = noChange;
-
-                if (company.lastSale == 0)
+                summaryGrid.Invoke(new Action(() =>
                 {
-                    changeNet = 0;
-                    changePer = 0;
-                }
-                else
+                    this.update();
+                }));
+            }
+            else
+            {
+                summaryGrid.Rows.Clear();
+                summaryGrid.Refresh();
+
+                List<Company> StockCompanies = StockMarket.getCompanies();
+                int i = 0;
+                foreach (Company company in StockCompanies)
                 {
-                    changeNet = company.lastSale - company.OpenPrice;
-                    if (changeNet < 0) sign = downImage;
-                    else if (changeNet > 0) sign = upImage;
+                    double changeNet;
+                    double changePer;
+                    int volume;
+                    Bitmap sign;
+                    sign = noChange;
 
-                    changeNet = Math.Abs(company.lastSale - company.OpenPrice);
-                    changePer = (changeNet / company.OpenPrice) * 100;
+                    if (company.lastSale == 0)
+                    {
+                        changeNet = 0;
+                        changePer = 0;
+                    }
+                    else
+                    {
+                        changeNet = company.lastSale - company.OpenPrice;
+                        if (changeNet < 0) sign = downImage;
+                        else if (changeNet > 0) sign = upImage;
+
+                        changeNet = Math.Abs(company.lastSale - company.OpenPrice);
+                        changePer = (changeNet / company.OpenPrice) * 100;
+                    }
+                    volume = company.getVolume();
+
+                    string[] row = { company.Name, company.Symbol, company.OpenPrice.ToString(), company.lastSale.ToString(), changeNet.ToString(), null, changePer.ToString("00.00"), volume.ToString() };
+                    summaryGrid.Rows.Add(row);
+                    summaryGrid[5, i].Value = sign;
+                    i++;
                 }
-                volume = company.getVolume();
-
-                string[] row = { company.Name, company.Symbol, company.OpenPrice.ToString(), company.lastSale.ToString(), changeNet.ToString(), null, changePer.ToString("00.00"), volume.ToString() };
-                summaryGrid.Rows.Add(row);
-                summaryGrid[5, i].Value = sign;
-                i++;
             }
 
+
+
         }
+
+        
 
         private void StockStateSummary_FormClosed(object sender, FormClosedEventArgs e)
         {
